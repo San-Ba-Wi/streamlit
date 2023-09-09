@@ -1,5 +1,4 @@
 import streamlit as st
-from variable_config import ANSWERS
 
 audio_file = open('Oort Cloud.mp3', 'rb')
 audio_bytes = audio_file.read()
