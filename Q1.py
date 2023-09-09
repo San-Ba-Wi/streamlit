@@ -25,3 +25,10 @@ else:
     st.write(':red[하지만 그것은 틀렸습니다!]')
     ANSWERS[0] = 0
     st.image('tryagain.jpg')
+
+font_dirs = [os.getcwd() + '/customFonts']
+font_files = fm.findSystemFonts(fontpaths=font_dirs)
+
+for font_file in font_files:
+    fm.fontManager.addfont(font_file)
+fm._load_fontmanager(try_read_cache=False)
