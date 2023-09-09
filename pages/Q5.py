@@ -31,4 +31,4 @@ if A[3] == 1:
         st.image('tryagain.jpg')
         A[4] = 0
 else:
-    st.title('red:[앞의 문제를 먼저 풀어주세요!]')
+    st.title(':red[앞의 문제를 먼저 풀어주세요!]')
