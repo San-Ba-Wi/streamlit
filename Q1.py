@@ -1,37 +1,36 @@
 import streamlit as st
-from variables_config import A
-
-audio_file = open('school-music.mp3', 'rb')
-audio_bytes = audio_file.read()
-
-st.audio(audio_bytes, format='audio/mp3')
-
-st.divider()
-
-answer = st.radio(
-    '이 노래는 무슨 노래일까요?',
-    ('정답을 선택해주세요','Hype Boy', '대구고등학교 교가', '바람기억')
+st.title("소수 개수 찾기")
+data = 1
+num = st.number_input(
+    label='양의 정수를 입력해주세요.',
+    value=1,
+    step=1
 )
-if answer == '대구고등학교 교가':
-    st.write(':blue[쩡답]입니다!')
-    st.write(':green[왼쪽의 페이지에서 다음 문제로 넘어가주세요!]')
-    st.image('correct!.webp')
-    A[0] = 1
-elif answer == '정답을 선택해주세요':
-    st.write()
-    st.image('thinking.jpg')
-    A[0] = 0
-else:
-    st.write(':red[하지만 그것은 틀렸습니다!]')
-    st.image('tryagain.jpg')
-    A[0] = 0
 
-import os
-import matplotlib.font_manager as fm
+A = []  # 초기값을 포함한 리스트
+B = []  # 소수만 출력될 리스트
 
-font_dirs = [os.getcwd() + '/customFonts']
-font_files = fm.findSystemFonts(fontpaths=font_dirs)
-
-for font_file in font_files:
-    fm.fontManager.addfont(font_file)
-fm._load_fontmanager(try_read_cache=False)
+button = st.button("소수 찾기")
+if button:
+    # 2부터 입력값까지 리스트 생성
+    for i in range(2, num + 1):
+        A.append(i)
+    
+    # 에라토스테네스의 체 원리를 사용하여 걸러진 수를 문자열 "removed"로 변경
+    for i in range(0, len(A)):
+         if type(A[i]) == int:
+            for j in range(i + 1, len(A)):
+                if type(A[j]) == int:
+                     if A[j] % A[i] == 0:
+                         A[j] = "removed"
+    
+    
+    for i in range(0, len(A)):
+         if type(A[i]) == int:
+             B.append(A[i])
+    
+    st.write(f'{len(B)}개의 소수가 있습니다.')
+    st.write(f'{B}')
+    
+    if len(B) >= 1000:
+        st.write("이정도는 좀 힘든걸..?")
